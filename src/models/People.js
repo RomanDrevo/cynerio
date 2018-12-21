@@ -5,6 +5,8 @@ export default class People {
 
     static reconstituteFrom(json) {
 
+        // console.log('json: ', json)
+
         const state = {
             id: json['id'],
             firstName: json['first_name'],

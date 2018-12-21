@@ -1,28 +1,59 @@
 import React, {Component} from 'react';
 import {Table} from "react-bootstrap";
 import {inject, observer} from "mobx-react/index";
+import Search from 'react-search'
 
 class PersonsTable extends Component {
+
+    state = {
+        search: ''
+    }
+
+    updateSearch = (e) => {
+
+        console.log('--search: ',  e.target.value)
+        this.setState({
+            search: e.target.value
+        })
+    }
+
     render() {
 
         const {people} = this.props
 
-        return (
-            <Table responsive>
-                <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>IP Address</th>
-                </tr>
-                </thead>
-                <tbody>
-                {
-                    people.map(person => <TableRow key={person.id} person={person}/>)
-                }
+        let filteredPeople = people.filter(
+            person => {
+                return person.firstName.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+                    person.lastName.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+            }
+        )
 
-                </tbody>
-            </Table>
+        console.log('--filteredPeople: ', filteredPeople)
+
+        return (
+
+            <div>
+
+                <input value={this.state.search} onChange={this.updateSearch}/>
+
+                <Table responsive>
+                    <thead>
+
+
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>IP Address</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {
+                        filteredPeople.map(person => <TableRow key={person.id} person={person}/>)
+                    }
+
+                    </tbody>
+                </Table>
+            </div>
         )
     }
 }

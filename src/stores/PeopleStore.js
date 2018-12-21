@@ -18,7 +18,8 @@ export default class PeopleStore{
         this.isLoading = true
         try {
             const response = await axios.get('https://jsonblob.com/api/jsonBlob/cf5497cd-fc54-11e8-a36c-dfedecf31ebc')
-            console.log(response)
+
+            // console.log('====resp: ', response.data.map(json => People.reconstituteFrom(json)))
 
             runInAction(()=> this.people = response.data.map(json => People.reconstituteFrom(json)))
         }
@@ -27,7 +28,8 @@ export default class PeopleStore{
         }
         finally {
             this.isLoading = false
-            console.log('this.people: ', this.people)
+            // console.log('====this.people: ', this.people)
+
         }
     }
 
