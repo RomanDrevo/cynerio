@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Table} from "react-bootstrap";
 import {inject, observer} from "mobx-react/index";
 
+
 class TableRow extends Component {
     render() {
         const {person} = this.props
