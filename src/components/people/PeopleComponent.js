@@ -1,45 +1,21 @@
 import React, {Component} from 'react';
 import {Table} from "react-bootstrap";
 import {inject, observer} from "mobx-react/index";
-import Search from 'react-search'
 
+
+@inject('peopleStore')
+@observer
 class PersonsTable extends Component {
 
-    state = {
-        search: ''
-    }
-
-    updateSearch = (e) => {
-
-        console.log('--search: ',  e.target.value)
-        this.setState({
-            search: e.target.value
-        })
-    }
-
     render() {
-
-        const {people} = this.props
-
-        let filteredPeople = people.filter(
-            person => {
-                return person.firstName.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-                    person.lastName.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
-            }
-        )
-
-        console.log('--filteredPeople: ', filteredPeople)
+        const {peopleStore} = this.props
 
         return (
-
             <div>
-
-                <input value={this.state.search} onChange={this.updateSearch}/>
+                <input value={peopleStore.search} onChange={peopleStore.updateSearch}/>
 
                 <Table responsive>
                     <thead>
-
-
                     <tr>
                         <th>First Name</th>
                         <th>Last Name</th>
@@ -48,7 +24,7 @@ class PersonsTable extends Component {
                     </thead>
                     <tbody>
                     {
-                        filteredPeople.map(person => <TableRow key={person.id} person={person}/>)
+                        peopleStore.filteredPeople.map(person => <TableRow key={person.id} person={person}/>)
                     }
 
                     </tbody>
@@ -71,18 +47,14 @@ class TableRow extends Component {
     }
 }
 
-@inject('peopleStore')
-@observer
+
 class PeopleComponent extends Component {
 
     render() {
-        const {peopleStore} = this.props
-        const {people} = peopleStore
-
         return (
             <div>
-                <PersonsTable people={people}/>
-                <PersonsTable people={people}/>
+                <PersonsTable />
+                <PersonsTable />
             </div>
         );
     }

@@ -1,4 +1,4 @@
-import {observable, action, runInAction} from "mobx";
+import {observable, action, runInAction, computed} from "mobx";
 import axios from 'axios'
 import People from "../models/People";
 
@@ -7,11 +7,7 @@ export default class PeopleStore{
 
     @observable people = []
 
-    // @action
-    // getPosts = () =>{
-    //     // console.log('here')
-    //     axios.get('db.json').then((res)=> console.log({res}))
-    // }
+    @observable search = ''
 
     @action
     async getPeople(){
@@ -31,6 +27,20 @@ export default class PeopleStore{
             // console.log('====this.people: ', this.people)
 
         }
+    }
+
+
+    @computed get filteredPeople() {
+        return this.people.filter(
+            person => {
+                return person.firstName.toLowerCase().indexOf(this.search.toLowerCase()) !== -1 ||
+                    person.lastName.toLowerCase().indexOf(this.search.toLowerCase()) !== -1
+            })
+    }
+
+    @action
+    updateSearch = (e) => {
+        this.search = e.target.value
     }
 
 }
