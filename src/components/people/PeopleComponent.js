@@ -33,18 +33,18 @@ class PersonsTable extends Component {
                 <input placeholder="Search" className="search-bar" value={peopleStore.search} onChange={peopleStore.updateSearch}/>
                 <div className="mt-2">
                     <label className="mr-2">
-                        <b>First Name</b>
                         <input onChange={this.toggleFirstNameColumn} checked={this.state.isFirstNameShow} type="checkbox"/>
+                        <b>First Name</b>
                     </label>
 
                     <label className="mr-2">
-                        <b>Last Name</b>
                         <input onChange={this.toggleLastNameColumn} checked={this.state.isLastNameShow} type="checkbox"/>
+                        <b>Last Name</b>
                     </label>
 
                     <label className="mr-2">
-                        <b>IP Address</b>
                         <input onChange={this.toggleIpAddressColumn} checked={this.state.isIpAddressShow} type="checkbox"/>
+                        <b>IP Address</b>
                     </label>
                 </div>
 
