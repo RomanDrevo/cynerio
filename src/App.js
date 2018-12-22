@@ -21,7 +21,7 @@ class App extends Component {
             return <img src={loader} className="loader" alt="loading-spinner"/>
 
         return (
-            <Grid>
+            <Grid className="mt-5">
                 <Row>
                     <Col sm={12}>
                         <PeopleComponent/>
